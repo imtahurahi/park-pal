@@ -131,7 +131,7 @@ with st.sidebar:
     
     page = st.selectbox(
         "Navigation",
-        ["Explore Parks", "My Profile", "Plan Trip", "My Trips", "My Reviews", "Flight Analytics", "AI Assistant"],
+        ["Explore Parks", "My Profile", "Plan Trip", "My Trips", "My Reviews", "Flights & Lodging", "Flight Analytics", "AI Assistant"],
     )
 
 # ===================================
@@ -348,6 +348,18 @@ elif page == "Plan Trip":
     park_options = {f"{row['park_name']} ({row['state']})": row['park_id'] 
                    for _, row in parks_df.iterrows()}
     
+    # Get flights list
+    flights_df = pd.read_sql_query(
+        """SELECT f.flight_id, a.airline_name, f.flight_number, f.price, f.flight_date
+           FROM Flights f
+           JOIN Airlines a ON f.airline_id = a.airline_id
+           ORDER BY f.flight_date""",
+        conn
+    )
+    flight_options = {f"{row['airline_name']} {row['flight_number']} - ${row['price']:.0f} ({row['flight_date']})": row['flight_id'] 
+                     for _, row in flights_df.iterrows()}
+    flight_options["None (I'll arrange my own travel)"] = None
+    
     with st.form("new_trip_form"):
         trip_title = st.text_input("Trip Title")
         selected_park = st.selectbox("Select Park", options=list(park_options.keys()))
@@ -358,6 +370,9 @@ elif page == "Plan Trip":
         with col2:
             departure_date = st.date_input("Departure Date", min_value=date.today())
         
+        # Optional flight selection
+        selected_flight = st.selectbox("Select Flight (optional)", options=list(flight_options.keys()))
+        
         trip_description = st.text_area("Trip Notes")
         status = st.selectbox("Status", ["draft", "planned", "confirmed"])
         
@@ -367,15 +382,17 @@ elif page == "Plan Trip":
             else:
                 cursor = conn.cursor()
                 park_id = park_options[selected_park]
+                flight_id = flight_options[selected_flight]
+                
                 cursor.execute(
-                    """INSERT INTO Trips (user_id, park_id, title, description, 
+                    """INSERT INTO Trips (user_id, park_id, flight_id, title, description, 
                        arrival_date, departure_date, status)
-                       VALUES (?, ?, ?, ?, ?, ?, ?)""",
-                    (st.session_state.user_id, park_id, trip_title, trip_description,
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                    (st.session_state.user_id, park_id, flight_id, trip_title, trip_description,
                      arrival_date, departure_date, status)
                 )
                 conn.commit()
-                st.success("Trip created successfully!")
+                st.success("Trip created successfully! You can add lodging from the 'Flights & Lodging' page.")
                 st.rerun()
     
     conn.close()
@@ -390,9 +407,14 @@ elif page == "My Trips":
     
     trips_query = """
     SELECT t.trip_id, t.title, p.park_name, p.state, t.arrival_date, 
-           t.departure_date, t.status, t.description
+           t.departure_date, t.status, t.description, t.flight_id, t.lodging_id,
+           a.airline_name, f.flight_number, f.price as flight_price,
+           l.name as lodging_name, l.type as lodging_type
     FROM Trips t
     JOIN Parks p ON t.park_id = p.park_id
+    LEFT JOIN Flights f ON t.flight_id = f.flight_id
+    LEFT JOIN Airlines a ON f.airline_id = a.airline_id
+    LEFT JOIN Lodging l ON t.lodging_id = l.lodging_id
     WHERE t.user_id = ? AND t.is_deleted = 0
     ORDER BY t.arrival_date DESC
     """
@@ -417,6 +439,15 @@ elif page == "My Trips":
                     st.write(f"**Status:** {trip['status'].title()}")
                     if trip['description']:
                         st.write(f"**Notes:** {trip['description']}")
+                    
+                    # Show flight info if available
+                    if trip['flight_id']:
+                        st.write(f"✈️ **Flight:** {trip['airline_name']} {trip['flight_number']} (${trip['flight_price']:.2f})")
+                    
+                    # Show lodging info if available
+                    if trip['lodging_id']:
+                        st.write(f"🏨 **Lodging:** {trip['lodging_name']} ({trip['lodging_type']})")
+
                 
                 with col2:
                     if st.button("✏️ Edit Trip", key=f"edit_trip_{trip['trip_id']}"):
@@ -493,6 +524,177 @@ elif page == "Flight Analytics":
     """
     df_punctuality = pd.read_sql_query(punctuality_query, conn)
     st.bar_chart(df_punctuality.set_index('airline_name')['avg_punctuality'])
+    
+    conn.close()
+
+# ===================================
+# FLIGHTS & LODGING PAGE
+# ===================================
+elif page == "Flights & Lodging":
+    st.header("🛫 Flights & 🏨 Lodging")
+    
+    conn = sqlite3.connect(db_path)
+    
+    tab1, tab2 = st.tabs(["Search Flights", "Find Lodging"])
+    
+    with tab1:
+        st.subheader("Search Flights to National Parks")
+        
+        # Get airports near parks
+        airports_query = """
+        SELECT DISTINCT a.airport_id, a.airport_code, a.airport_name, a.city, a.state
+        FROM Airports a
+        JOIN Park_Airports pa ON a.airport_id = pa.airport_id
+        ORDER BY a.airport_name
+        """
+        df_airports = pd.read_sql_query(airports_query, conn)
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            origin_options = {f"{row['airport_code']} - {row['airport_name']}": row['airport_id'] 
+                            for _, row in df_airports.iterrows()}
+            origin_airport = st.selectbox("From", options=list(origin_options.keys()), key="origin")
+        
+        with col2:
+            dest_airport = st.selectbox("To", options=list(origin_options.keys()), key="dest")
+        
+        flight_date = st.date_input("Departure Date", min_value=date.today())
+        
+        if st.button("Search Flights"):
+            if origin_airport and dest_airport:
+                origin_id = origin_options[origin_airport]
+                dest_id = origin_options[dest_airport]
+                
+                flights_query = """
+                SELECT f.flight_id, a.airline_name, f.flight_number, 
+                       f.departure_time, f.arrival_time, f.duration_minutes,
+                       f.price, f.punctuality_score, f.number_of_stops
+                FROM Flights f
+                JOIN Airlines a ON f.airline_id = a.airline_id
+                WHERE f.origin_airport_id = ? AND f.destination_airport_id = ?
+                  AND f.flight_date = ?
+                ORDER BY f.price
+                """
+                df_flights = pd.read_sql_query(
+                    flights_query, 
+                    conn, 
+                    params=(origin_id, dest_id, flight_date)
+                )
+                
+                if len(df_flights) > 0:
+                    st.success(f"Found {len(df_flights)} flights")
+                    
+                    for _, flight in df_flights.iterrows():
+                        with st.container():
+                            col_a, col_b, col_c = st.columns([2, 2, 1])
+                            
+                            with col_a:
+                                st.write(f"**{flight['airline_name']}** {flight['flight_number']}")
+                                st.write(f"⏰ {flight['departure_time']} → {flight['arrival_time']}")
+                                st.write(f"⏱️ {flight['duration_minutes']} min | 🔄 {flight['number_of_stops']} stops")
+                            
+                            with col_b:
+                                st.write(f"**${flight['price']:.2f}**")
+                                st.write(f"⭐ Punctuality: {flight['punctuality_score']:.1f}/100")
+                            
+                            with col_c:
+                                if st.button("Book", key=f"book_flight_{flight['flight_id']}"):
+                                    st.info("Flight booking would be added to your trip")
+                            
+                            st.divider()
+                else:
+                    st.warning("No flights found for this route and date")
+    
+    with tab2:
+        st.subheader("Find Lodging Near Parks")
+        
+        # Get parks list
+        parks_df = pd.read_sql_query(
+            "SELECT park_id, park_name, state FROM Parks ORDER BY park_name", 
+            conn
+        )
+        park_options = {f"{row['park_name']} ({row['state']})": row['park_id'] 
+                       for _, row in parks_df.iterrows()}
+        
+        selected_park = st.selectbox("Select Park", options=list(park_options.keys()))
+        
+        if selected_park:
+            park_id = park_options[selected_park]
+            
+            # Lodging filters
+            col1, col2 = st.columns(2)
+            with col1:
+                lodging_type = st.multiselect(
+                    "Type", 
+                    options=["hotel", "lodge", "campground", "cabin", "resort"],
+                    default=[]
+                )
+            with col2:
+                price_range = st.multiselect(
+                    "Price Range",
+                    options=["$", "$$", "$$$", "$$$$"],
+                    default=[]
+                )
+            
+            # Build query
+            lodging_query = """
+            SELECT l.lodging_id, l.name, l.type, l.address, 
+                   l.distance_from_park_miles, l.price_range,
+                   l.contact_phone, l.website, l.wifi_available, 
+                   l.pet_friendly, l.accessibility_features
+            FROM Lodging l
+            WHERE l.park_id = ?
+            """
+            params = [park_id]
+            
+            if lodging_type:
+                placeholders = ','.join(['?' for _ in lodging_type])
+                lodging_query += f" AND l.type IN ({placeholders})"
+                params.extend(lodging_type)
+            
+            if price_range:
+                placeholders = ','.join(['?' for _ in price_range])
+                lodging_query += f" AND l.price_range IN ({placeholders})"
+                params.extend(price_range)
+            
+            lodging_query += " ORDER BY l.distance_from_park_miles"
+            
+            df_lodging = pd.read_sql_query(lodging_query, conn, params=params)
+            
+            if len(df_lodging) > 0:
+                st.success(f"Found {len(df_lodging)} lodging options")
+                
+                for _, lodging in df_lodging.iterrows():
+                    with st.expander(f"🏨 {lodging['name']} - {lodging['type'].title()}"):
+                        col_x, col_y = st.columns([2, 1])
+                        
+                        with col_x:
+                            st.write(f"**Address:** {lodging['address']}")
+                            st.write(f"**Distance from Park:** {lodging['distance_from_park_miles']:.1f} miles")
+                            st.write(f"**Price Range:** {lodging['price_range']}")
+                            
+                            amenities = []
+                            if lodging['wifi_available']:
+                                amenities.append("📶 WiFi")
+                            if lodging['pet_friendly']:
+                                amenities.append("🐕 Pet-Friendly")
+                            if lodging['accessibility_features']:
+                                amenities.append("♿ Accessible")
+                            
+                            if amenities:
+                                st.write(f"**Amenities:** {' | '.join(amenities)}")
+                            
+                            if lodging['contact_phone']:
+                                st.write(f"**Phone:** {lodging['contact_phone']}")
+                            if lodging['website']:
+                                st.write(f"**Website:** {lodging['website']}")
+                        
+                        with col_y:
+                            if st.button("Add to Trip", key=f"book_lodging_{lodging['lodging_id']}"):
+                                st.info("Lodging would be added to your trip")
+            else:
+                st.info("No lodging options found with the selected filters")
     
     conn.close()
 
