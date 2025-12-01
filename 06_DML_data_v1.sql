@@ -74,7 +74,7 @@ VALUES (
     );
 
 -- ===================================
--- NATIONAL PARKS
+-- NATIONAL PARKS (All 63 US National Parks)
 -- ===================================
 
 INSERT INTO
@@ -90,66 +90,8 @@ INSERT INTO
         entrance_fee,
         best_seasons
     )
-VALUES (
-        'Yellowstone National Park',
-        'Wyoming',
-        44.427963,
-        -110.588455,
-        'America''s first national park, famous for geysers and wildlife',
-        'Old Faithful, Grand Prismatic Spring, Wildlife viewing',
-        'moderate',
-        1,
-        35.00,
-        'Summer, Fall'
-    ),
-    (
-        'Grand Canyon National Park',
-        'Arizona',
-        36.106965,
-        -112.112997,
-        'Massive canyon carved by the Colorado River',
-        'South Rim views, Colorado River, Hiking trails',
-        'moderate',
-        1,
-        35.00,
-        'Spring, Fall'
-    ),
-    (
-        'Yosemite National Park',
-        'California',
-        37.865101,
-        -119.538330,
-        'Known for granite cliffs, waterfalls, and giant sequoias',
-        'Half Dome, El Capitan, Yosemite Falls',
-        'challenging',
-        1,
-        35.00,
-        'Spring, Summer, Fall'
-    ),
-    (
-        'Zion National Park',
-        'Utah',
-        37.297817,
-        -113.026161,
-        'Red rock canyons and dramatic desert landscapes',
-        'Angels Landing, The Narrows, Canyon Overlook',
-        'challenging',
-        0,
-        35.00,
-        'Spring, Fall'
-    ),
-    (
-        'Great Smoky Mountains National Park',
-        'Tennessee',
-        35.611763,
-        -83.489548,
-        'Ancient mountains with diverse plant and animal life',
-        'Cades Cove, Hiking trails, Fall foliage',
-        'easy',
-        1,
-        0.00,
-        'Spring, Summer, Fall'
-    ),
+VALUES
+    -- 1. Acadia
     (
         'Acadia National Park',
         'Maine',
@@ -162,6 +104,267 @@ VALUES (
         30.00,
         'Summer, Fall'
     ),
+    -- 2. American Samoa
+    (
+        'National Park of American Samoa',
+        'American Samoa',
+        -14.258333,
+        -170.684722,
+        'Tropical rainforest and coral reefs',
+        'Ofu Beach, Rainforest trails, Cultural sites',
+        'moderate',
+        1,
+        0.00,
+        'Year-round'
+    ),
+    -- 3. Arches
+    (
+        'Arches National Park',
+        'Utah',
+        38.733082,
+        -109.592514,
+        'Over 2,000 natural stone arches',
+        'Delicate Arch, Landscape Arch, Devils Garden',
+        'moderate',
+        1,
+        30.00,
+        'Spring, Fall'
+    ),
+    -- 4. Badlands
+    (
+        'Badlands National Park',
+        'South Dakota',
+        43.855000,
+        -102.339722,
+        'Dramatic eroded buttes and pinnacles',
+        'Badlands Loop Road, Fossil trails, Wildlife viewing',
+        'easy',
+        1,
+        30.00,
+        'Spring, Fall'
+    ),
+    -- 5. Big Bend
+    (
+        'Big Bend National Park',
+        'Texas',
+        29.250000,
+        -103.250000,
+        'Vast Chihuahuan Desert wilderness',
+        'Chisos Mountains, Rio Grande, Santa Elena Canyon',
+        'moderate',
+        0,
+        30.00,
+        'Fall, Winter, Spring'
+    ),
+    -- 6. Biscayne
+    (
+        'Biscayne National Park',
+        'Florida',
+        25.490000,
+        -80.210000,
+        '95% underwater coral reef ecosystem',
+        'Snorkeling, Diving, Boca Chita Key',
+        'easy',
+        1,
+        0.00,
+        'Winter, Spring'
+    ),
+    -- 7. Black Canyon of the Gunnison
+    (
+        'Black Canyon of the Gunnison National Park',
+        'Colorado',
+        38.575833,
+        -107.725278,
+        'Narrow, deep canyon with dramatic cliffs',
+        'Painted Wall, South Rim Drive, North Rim',
+        'challenging',
+        0,
+        30.00,
+        'Summer, Fall'
+    ),
+    -- 8. Bryce Canyon
+    (
+        'Bryce Canyon National Park',
+        'Utah',
+        37.593000,
+        -112.187000,
+        'Unique red rock hoodoos and amphitheaters',
+        'Sunrise Point, Queens Garden Trail, Inspiration Point',
+        'moderate',
+        1,
+        35.00,
+        'Spring, Summer, Fall'
+    ),
+    -- 9. Canyonlands
+    (
+        'Canyonlands National Park',
+        'Utah',
+        38.327000,
+        -109.879000,
+        'Vast desert landscape carved by rivers',
+        'Mesa Arch, Island in the Sky, The Needles',
+        'challenging',
+        0,
+        30.00,
+        'Spring, Fall'
+    ),
+    -- 10. Capitol Reef
+    (
+        'Capitol Reef National Park',
+        'Utah',
+        38.367000,
+        -111.262000,
+        'Colorful desert landscape and orchards',
+        'Scenic Drive, Waterpocket Fold, Fruita Historic District',
+        'moderate',
+        1,
+        20.00,
+        'Spring, Fall'
+    ),
+    -- 11. Carlsbad Caverns
+    (
+        'Carlsbad Caverns National Park',
+        'New Mexico',
+        32.147778,
+        -104.556667,
+        'Massive underground cave system',
+        'Big Room, Bat Flight Program, Kings Palace',
+        'easy',
+        1,
+        15.00,
+        'Year-round'
+    ),
+    -- 12. Channel Islands
+    (
+        'Channel Islands National Park',
+        'California',
+        34.006389,
+        -119.772778,
+        'Five remote islands off California coast',
+        'Kayaking, Wildlife, Hiking, Snorkeling',
+        'moderate',
+        0,
+        0.00,
+        'Spring, Summer, Fall'
+    ),
+    -- 13. Congaree
+    (
+        'Congaree National Park',
+        'South Carolina',
+        33.785278,
+        -80.781944,
+        'Old-growth bottomland hardwood forest',
+        'Boardwalk Loop, Canoeing, Champion trees',
+        'easy',
+        1,
+        0.00,
+        'Spring, Fall'
+    ),
+    -- 14. Crater Lake
+    (
+        'Crater Lake National Park',
+        'Oregon',
+        42.868889,
+        -122.168333,
+        'Deepest lake in the US in a volcanic caldera',
+        'Rim Drive, Wizard Island, Pumice Desert',
+        'moderate',
+        1,
+        30.00,
+        'Summer, Fall'
+    ),
+    -- 15. Cuyahoga Valley
+    (
+        'Cuyahoga Valley National Park',
+        'Ohio',
+        41.240278,
+        -81.550556,
+        'Rolling hills, rivers, and waterfalls',
+        'Brandywine Falls, Ohio & Erie Canal Towpath, Ledges Trail',
+        'easy',
+        1,
+        0.00,
+        'Spring, Summer, Fall'
+    ),
+    -- 16. Death Valley
+    (
+        'Death Valley National Park',
+        'California',
+        36.505556,
+        -117.079722,
+        'Hottest, driest, lowest national park',
+        'Badwater Basin, Zabriskie Point, Artists Palette',
+        'moderate',
+        0,
+        30.00,
+        'Fall, Winter, Spring'
+    ),
+    -- 17. Denali
+    (
+        'Denali National Park',
+        'Alaska',
+        63.115833,
+        -151.190833,
+        'Home to North America''s highest peak',
+        'Mount McKinley, Wildlife viewing, Wonder Lake',
+        'challenging',
+        0,
+        15.00,
+        'Summer'
+    ),
+    -- 18. Dry Tortugas
+    (
+        'Dry Tortugas National Park',
+        'Florida',
+        24.628611,
+        -82.873056,
+        'Remote islands with historic fort and reefs',
+        'Fort Jefferson, Snorkeling, Bird watching',
+        'easy',
+        1,
+        15.00,
+        'Winter, Spring'
+    ),
+    -- 19. Everglades
+    (
+        'Everglades National Park',
+        'Florida',
+        25.286615,
+        -80.898651,
+        'Largest tropical wilderness in the United States',
+        'Airboat tours, Wildlife, Anhinga Trail',
+        'easy',
+        1,
+        30.00,
+        'Winter, Spring'
+    ),
+    -- 20. Gates of the Arctic
+    (
+        'Gates of the Arctic National Park',
+        'Alaska',
+        67.780000,
+        -153.300000,
+        'Remote Arctic wilderness, no roads or trails',
+        'Backcountry hiking, Wildlife, Northern lights',
+        'challenging',
+        0,
+        0.00,
+        'Summer'
+    ),
+    -- 21. Gateway Arch
+    (
+        'Gateway Arch National Park',
+        'Missouri',
+        38.624722,
+        -90.184722,
+        'Iconic 630-foot arch monument',
+        'Gateway Arch, Museum, Riverboat cruises',
+        'easy',
+        1,
+        0.00,
+        'Spring, Summer, Fall'
+    ),
+    -- 22. Glacier
     (
         'Glacier National Park',
         'Montana',
@@ -174,18 +377,319 @@ VALUES (
         35.00,
         'Summer'
     ),
+    -- 23. Glacier Bay
     (
-        'Rocky Mountain National Park',
+        'Glacier Bay National Park',
+        'Alaska',
+        58.665556,
+        -136.900278,
+        'Tidewater glaciers and fjords',
+        'Glacier viewing, Whale watching, Kayaking',
+        'moderate',
+        0,
+        0.00,
+        'Summer'
+    ),
+    -- 24. Grand Canyon
+    (
+        'Grand Canyon National Park',
+        'Arizona',
+        36.106965,
+        -112.112997,
+        'Massive canyon carved by the Colorado River',
+        'South Rim views, Colorado River, Hiking trails',
+        'moderate',
+        1,
+        35.00,
+        'Spring, Fall'
+    ),
+    -- 25. Grand Teton
+    (
+        'Grand Teton National Park',
+        'Wyoming',
+        43.790000,
+        -110.680000,
+        'Dramatic mountain range rising from valley floor',
+        'Snake River, Jenny Lake, Cascade Canyon',
+        'challenging',
+        1,
+        35.00,
+        'Summer, Fall'
+    ),
+    -- 26. Great Basin
+    (
+        'Great Basin National Park',
+        'Nevada',
+        38.983333,
+        -114.300000,
+        'Ancient bristlecone pines and limestone caves',
+        'Lehman Caves, Wheeler Peak, Stargazing',
+        'moderate',
+        1,
+        0.00,
+        'Summer, Fall'
+    ),
+    -- 27. Great Sand Dunes
+    (
+        'Great Sand Dunes National Park',
         'Colorado',
-        40.342767,
-        -105.683611,
-        'High alpine peaks and diverse ecosystems',
-        'Trail Ridge Road, Bear Lake, Wildlife viewing',
+        37.729167,
+        -105.512778,
+        'Tallest sand dunes in North America',
+        'High Dune, Star Dune, Medano Creek',
+        'moderate',
+        1,
+        25.00,
+        'Spring, Summer, Fall'
+    ),
+    -- 28. Great Smoky Mountains
+    (
+        'Great Smoky Mountains National Park',
+        'Tennessee',
+        35.611763,
+        -83.489548,
+        'Ancient mountains with diverse plant and animal life',
+        'Cades Cove, Hiking trails, Fall foliage',
+        'easy',
+        1,
+        0.00,
+        'Spring, Summer, Fall'
+    ),
+    -- 29. Guadalupe Mountains
+    (
+        'Guadalupe Mountains National Park',
+        'Texas',
+        31.923056,
+        -104.867222,
+        'Highest peaks in Texas with fossil reef',
+        'Guadalupe Peak, McKittrick Canyon, El Capitan',
+        'challenging',
+        0,
+        10.00,
+        'Fall, Winter, Spring'
+    ),
+    -- 30. Haleakalā
+    (
+        'Haleakalā National Park',
+        'Hawaii',
+        20.720833,
+        -156.166667,
+        'Massive dormant volcano and unique ecosystems',
+        'Sunrise at summit, Haleakalā Crater, Pipiwai Trail',
+        'moderate',
+        1,
+        30.00,
+        'Year-round'
+    ),
+    -- 31. Hawai'i Volcanoes
+    (
+        'Hawaiʻi Volcanoes National Park',
+        'Hawaii',
+        19.419722,
+        -155.288056,
+        'Active volcanoes and volcanic landscapes',
+        'Kīlauea, Chain of Craters Road, Thurston Lava Tube',
+        'easy',
+        1,
+        30.00,
+        'Year-round'
+    ),
+    -- 32. Hot Springs
+    (
+        'Hot Springs National Park',
+        'Arkansas',
+        34.521389,
+        -93.053889,
+        'Historic bathhouses and thermal springs',
+        'Bathhouse Row, Hot Springs Mountain, Grand Promenade',
+        'easy',
+        1,
+        0.00,
+        'Year-round'
+    ),
+    -- 33. Indiana Dunes
+    (
+        'Indiana Dunes National Park',
+        'Indiana',
+        41.653333,
+        -87.054167,
+        'Sandy beaches along Lake Michigan shore',
+        'West Beach, Mount Baldy, Dune succession trails',
+        'easy',
+        1,
+        0.00,
+        'Summer, Fall'
+    ),
+    -- 34. Isle Royale
+    (
+        'Isle Royale National Park',
+        'Michigan',
+        47.995833,
+        -88.909444,
+        'Remote island in Lake Superior',
+        'Backpacking, Kayaking, Moose and wolf watching',
+        'challenging',
+        0,
+        0.00,
+        'Summer'
+    ),
+    -- 35. Joshua Tree
+    (
+        'Joshua Tree National Park',
+        'California',
+        33.873415,
+        -115.901013,
+        'Unique desert landscape with Joshua trees',
+        'Keys View, Hidden Valley, Skull Rock',
+        'moderate',
+        1,
+        30.00,
+        'Fall, Winter, Spring'
+    ),
+    -- 36. Katmai
+    (
+        'Katmai National Park',
+        'Alaska',
+        58.597222,
+        -155.064722,
+        'Brown bears fishing for salmon',
+        'Brooks Falls, Valley of Ten Thousand Smokes, Bear viewing',
+        'challenging',
+        0,
+        0.00,
+        'Summer'
+    ),
+    -- 37. Kenai Fjords
+    (
+        'Kenai Fjords National Park',
+        'Alaska',
+        59.924722,
+        -149.651944,
+        'Glaciers, fjords, and marine wildlife',
+        'Exit Glacier, Harding Icefield, Boat tours',
+        'moderate',
+        1,
+        0.00,
+        'Summer'
+    ),
+    -- 38. Kings Canyon
+    (
+        'Kings Canyon National Park',
+        'California',
+        36.887778,
+        -118.555278,
+        'Deep canyons and giant sequoia groves',
+        'General Grant Tree, Kings Canyon Scenic Byway, Cedar Grove',
+        'moderate',
+        1,
+        35.00,
+        'Summer, Fall'
+    ),
+    -- 39. Kobuk Valley
+    (
+        'Kobuk Valley National Park',
+        'Alaska',
+        67.355278,
+        -159.134722,
+        'Sand dunes and caribou migration',
+        'Great Kobuk Sand Dunes, Caribou migration, Onion Portage',
+        'challenging',
+        0,
+        0.00,
+        'Summer'
+    ),
+    -- 40. Lake Clark
+    (
+        'Lake Clark National Park',
+        'Alaska',
+        60.970556,
+        -153.413889,
+        'Volcanoes, glaciers, and pristine lakes',
+        'Twin Lakes, Mount Redoubt, Wildlife viewing',
+        'challenging',
+        0,
+        0.00,
+        'Summer'
+    ),
+    -- 41. Lassen Volcanic
+    (
+        'Lassen Volcanic National Park',
+        'California',
+        40.497222,
+        -121.505278,
+        'Active volcanic features and hydrothermal areas',
+        'Lassen Peak, Bumpass Hell, Manzanita Lake',
         'moderate',
         1,
         30.00,
         'Summer, Fall'
     ),
+    -- 42. Mammoth Cave
+    (
+        'Mammoth Cave National Park',
+        'Kentucky',
+        37.186389,
+        -86.100278,
+        'World''s longest known cave system',
+        'Cave tours, Historic tour, Green River',
+        'easy',
+        1,
+        0.00,
+        'Year-round'
+    ),
+    -- 43. Mesa Verde
+    (
+        'Mesa Verde National Park',
+        'Colorado',
+        37.231111,
+        -108.462778,
+        'Ancestral Puebloan cliff dwellings',
+        'Cliff Palace, Balcony House, Spruce Tree House',
+        'moderate',
+        1,
+        30.00,
+        'Spring, Summer, Fall'
+    ),
+    -- 44. Mount Rainier
+    (
+        'Mount Rainier National Park',
+        'Washington',
+        46.879722,
+        -121.726944,
+        'Iconic stratovolcano with glaciers and meadows',
+        'Paradise, Sunrise, Wonderland Trail',
+        'challenging',
+        1,
+        30.00,
+        'Summer, Fall'
+    ),
+    -- 45. New River Gorge
+    (
+        'New River Gorge National Park',
+        'West Virginia',
+        37.954722,
+        -81.072222,
+        'Ancient river gorge with whitewater rafting',
+        'New River Gorge Bridge, Sandstone Falls, Endless Wall Trail',
+        'moderate',
+        1,
+        0.00,
+        'Spring, Summer, Fall'
+    ),
+    -- 46. North Cascades
+    (
+        'North Cascades National Park',
+        'Washington',
+        48.720000,
+        -121.290000,
+        'Rugged mountains and alpine lakes',
+        'Cascade Pass, Diablo Lake, Ross Lake',
+        'challenging',
+        0,
+        0.00,
+        'Summer, Fall'
+    ),
+    -- 47. Olympic
     (
         'Olympic National Park',
         'Washington',
@@ -198,17 +702,213 @@ VALUES (
         30.00,
         'Summer, Fall'
     ),
+    -- 48. Petrified Forest
     (
-        'Everglades National Park',
-        'Florida',
-        25.286615,
-        -80.898651,
-        'Largest tropical wilderness in the United States',
-        'Airboat tours, Wildlife, Anhinga Trail',
+        'Petrified Forest National Park',
+        'Arizona',
+        34.909444,
+        -109.806667,
+        'Colorful badlands and petrified wood',
+        'Painted Desert, Blue Mesa, Crystal Forest',
+        'easy',
+        1,
+        25.00,
+        'Spring, Fall'
+    ),
+    -- 49. Pinnacles
+    (
+        'Pinnacles National Park',
+        'California',
+        36.490833,
+        -121.182222,
+        'Volcanic rock formations and talus caves',
+        'High Peaks, Bear Gulch Cave, Condor viewing',
+        'moderate',
+        1,
+        30.00,
+        'Spring, Fall'
+    ),
+    -- 50. Redwood
+    (
+        'Redwood National Park',
+        'California',
+        41.213056,
+        -124.004722,
+        'Tallest trees on Earth',
+        'Lady Bird Johnson Grove, Fern Canyon, Tall Trees Grove',
+        'easy',
+        1,
+        0.00,
+        'Spring, Summer, Fall'
+    ),
+    -- 51. Rocky Mountain
+    (
+        'Rocky Mountain National Park',
+        'Colorado',
+        40.342767,
+        -105.683611,
+        'High alpine peaks and diverse ecosystems',
+        'Trail Ridge Road, Bear Lake, Wildlife viewing',
+        'moderate',
+        1,
+        30.00,
+        'Summer, Fall'
+    ),
+    -- 52. Saguaro
+    (
+        'Saguaro National Park',
+        'Arizona',
+        32.247222,
+        -110.738889,
+        'Giant saguaro cactus forest',
+        'Cactus Forest Drive, Valley View Overlook, Desert trails',
+        'easy',
+        1,
+        25.00,
+        'Fall, Winter, Spring'
+    ),
+    -- 53. Sequoia
+    (
+        'Sequoia National Park',
+        'California',
+        36.564722,
+        -118.772222,
+        'Giant sequoia trees including the General Sherman Tree',
+        'General Sherman Tree, Moro Rock, Crystal Cave',
+        'moderate',
+        1,
+        35.00,
+        'Summer, Fall'
+    ),
+    -- 54. Shenandoah
+    (
+        'Shenandoah National Park',
+        'Virginia',
+        38.292778,
+        -78.679444,
+        'Blue Ridge Mountains with Skyline Drive',
+        'Skyline Drive, Old Rag Mountain, Dark Hollow Falls',
+        'moderate',
+        1,
+        30.00,
+        'Spring, Summer, Fall'
+    ),
+    -- 55. Theodore Roosevelt
+    (
+        'Theodore Roosevelt National Park',
+        'North Dakota',
+        46.978889,
+        -103.537778,
+        'Badlands and Roosevelt''s historic ranch',
+        'Painted Canyon, Scenic Loop Drive, Wild horses',
         'easy',
         1,
         30.00,
+        'Spring, Summer, Fall'
+    ),
+    -- 56. Virgin Islands
+    (
+        'Virgin Islands National Park',
+        'U.S. Virgin Islands',
+        18.343333,
+        -64.733333,
+        'Caribbean beaches and coral reefs',
+        'Trunk Bay, Snorkeling, Reef Bay Trail',
+        'easy',
+        1,
+        0.00,
         'Winter, Spring'
+    ),
+    -- 57. Voyageurs
+    (
+        'Voyageurs National Park',
+        'Minnesota',
+        48.500000,
+        -92.883333,
+        'Water-based park with lakes and islands',
+        'Boat tours, Kayaking, Northern lights, Fishing',
+        'moderate',
+        1,
+        0.00,
+        'Summer'
+    ),
+    -- 58. White Sands
+    (
+        'White Sands National Park',
+        'New Mexico',
+        32.783889,
+        -106.171111,
+        'Vast white gypsum sand dunes',
+        'Dunes Drive, Sledding, Alkali Flat Trail',
+        'easy',
+        1,
+        25.00,
+        'Fall, Winter, Spring'
+    ),
+    -- 59. Wind Cave
+    (
+        'Wind Cave National Park',
+        'South Dakota',
+        43.570833,
+        -103.426111,
+        'Complex cave system and mixed-grass prairie',
+        'Cave tours, Boxwork formations, Wildlife viewing',
+        'easy',
+        1,
+        0.00,
+        'Year-round'
+    ),
+    -- 60. Wrangell-St. Elias
+    (
+        'Wrangell-St. Elias National Park',
+        'Alaska',
+        61.710000,
+        -142.985833,
+        'Largest national park with massive glaciers',
+        'Kennecott Mines, Root Glacier, Mountain peaks',
+        'challenging',
+        0,
+        0.00,
+        'Summer'
+    ),
+    -- 61. Yellowstone
+    (
+        'Yellowstone National Park',
+        'Wyoming',
+        44.427963,
+        -110.588455,
+        'America''s first national park, famous for geysers and wildlife',
+        'Old Faithful, Grand Prismatic Spring, Wildlife viewing',
+        'moderate',
+        1,
+        35.00,
+        'Summer, Fall'
+    ),
+    -- 62. Yosemite
+    (
+        'Yosemite National Park',
+        'California',
+        37.865101,
+        -119.538330,
+        'Known for granite cliffs, waterfalls, and giant sequoias',
+        'Half Dome, El Capitan, Yosemite Falls',
+        'challenging',
+        1,
+        35.00,
+        'Spring, Summer, Fall'
+    ),
+    -- 63. Zion
+    (
+        'Zion National Park',
+        'Utah',
+        37.297817,
+        -113.026161,
+        'Red rock canyons and dramatic desert landscapes',
+        'Angels Landing, The Narrows, Canyon Overlook',
+        'challenging',
+        0,
+        35.00,
+        'Spring, Fall'
     );
 
 -- ===================================

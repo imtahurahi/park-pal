@@ -1,0 +1,188 @@
+================================================================================
+PROJECT: NATIONAL PARK TRAVEL PLANNER - ALL USER PROMPTS
+================================================================================
+
+This document contains all user prompts from the development of the National 
+Park Travel Planner application, organized by section.
+
+================================================================================
+SECTION 1: INITIAL APPLICATION SETUP & ERRORS
+================================================================================
+
+- please start app in terminal
+
+- sqlite3.OperationalError: unable to open database file
+  
+  File "C:\Users\jeffr\Documents\SMU MSBA\Database Design\Project\my-name\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 128, in exec_func_with_error_handling
+      result = func()
+  File "C:\Users\jeffr\Documents\SMU MSBA\Database Design\Project\my-name\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 669, in code_to_exec
+      exec(code, module.__dict__)  # noqa: S102
+      ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jeffr\Documents\SMU MSBA\Database Design\Project\07_sample_app.py", line 13, in <module>
+      conn = sqlite3.connect(db_path)
+
+- NameError: name 'context_query' is not defined
+  
+  File "C:\Users\jeffr\Documents\SMU MSBA\Database Design\Project\my-name\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 128, in exec_func_with_error_handling
+      result = func()
+  File "C:\Users\jeffr\Documents\SMU MSBA\Database Design\Project\my-name\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 669, in code_to_exec
+      exec(code, module.__dict__)  # noqa: S102
+      ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jeffr\Documents\SMU MSBA\Database Design\Project\07_sample_app.py", line 453, in <module>
+      st.code(context_query, language="sql")
+              ^^^^^^^^^^^^^
+
+================================================================================
+SECTION 2: ENVIRONMENT VARIABLES & API CONFIGURATION
+================================================================================
+
+- Note: To enable full AI capabilities, set your OPENAI_API_KEY environment variable. The key is available at .env, we've also installed dotenv, please figure out how to use env vars in streamlit or why is it not reading? check if the message is a proper check or if it was a lazy implementation
+
+- thanks for admitting your mistake. but now there is this:
+  File "C:\Users\jeffr\Documents\SMU MSBA\Database Design\Project\07_sample_app.py", line 475
+    """         conn = sqlite3.connect(db_path)
+                ^
+  SyntaxError: invalid syntax
+
+- do better
+
+================================================================================
+SECTION 3: UI/UX IMPROVEMENTS
+================================================================================
+
+- please change to stream instead of waiting for entire generation, users are leaving because of your terrible ui choices
+
+================================================================================
+SECTION 4: AI MODEL CONFIGURATION
+================================================================================
+
+- change model to a personable gpt 5.1. it's currently either set to gpt-3_5-turbo-0125 or is a default. The latest is gpt-5.1-2025-11-13
+
+- optimize system prompt to be more personable and helpful
+
+================================================================================
+SECTION 5: VERSION CONTROL & DEPLOYMENT
+================================================================================
+
+- whoopsies we forgot to make this a git repo. Please add git and push to https://github.com/imtahurahi/park-pal.git it has been set up as an empty repo
+
+- [     UTC     ] Logs for smu-park-pal.streamlit.app/
+  
+  ────────────────────────────────────────────────────────────────────────────────────────
+  
+  [07:11:42] 🖥 Provisioning machine...
+  
+  [07:11:42] 🎛 Preparing system...
+  
+  [07:11:42] ⛓ Spinning up manager process...
+  
+  [07:11:44] 🚀 Starting up repository: 'park-pal', branch: 'master', main module: '07_sample_app.py'
+  
+  [07:11:44] 🐙 Cloning repository...
+  
+  [07:11:45] 🐙 Cloning into '/mount/src/park-pal'...
+  
+  [07:11:45] 🐙 Cloned repository!
+  
+  [07:11:45] 🐙 Pulling code changes from Github...
+  
+  [07:11:46] 📦 Processing dependencies...
+  
+  error: No interpreter found for Python 3.14 in managed installations or search path
+  
+  [07:11:47] ❗️ installer returned a non-zero exit code
+  
+  [07:11:47] ❗️ Error during processing dependencies! Please fix the error and push an update, or try restarting the app.
+  
+  
+  Deployment bugs, I think streamlit uses python 3.13 please change our project to that
+
+- [     UTC     ] Logs for smu-park-pal.streamlit.app/
+  
+  ────────────────────────────────────────────────────────────────────────────────────────
+  
+  [07:11:42] 🖥 Provisioning machine...
+  
+  [07:11:42] 🎛 Preparing system...
+  
+  [07:11:42] ⛓ Spinning up manager process...
+  
+  [07:11:44] 🚀 Starting up repository: 'park-pal', branch: 'master', main module: '07_sample_app.py'
+  
+  [07:11:44] 🐙 Cloning repository...
+  
+  [07:11:45] 🐙 Cloning into '/mount/src/park-pal'...
+  
+  [07:11:45] 🐙 Cloned repository!
+  
+  [07:11:45] 🐙 Pulling code changes from Github...
+  
+  [07:11:46] 📦 Processing dependencies...
+  
+  error: No interpreter found for Python 3.14 in managed installations or search path
+  
+  [07:11:47] ❗️ installer returned a non-zero exit code
+  
+  [07:11:47] ❗️ Error during processing dependencies! Please fix the error and push an update, or try restarting the app.
+  
+  [07:13:58] 🐙 Pulling code changes from Github...
+  
+  [07:13:59] 📦 Processing dependencies...
+  
+  Using CPython 3.13.9 interpreter at: /usr/local/bin/python3.13
+  
+  error: The Python request from `.python-version` resolved to Python 3.13.9, which is incompatible with the project's Python requirement: `>=3.14`
+  
+  [07:14:00] ❗️ installer returned a non-zero exit code
+
+- the error is still there please fix with uv
+
+================================================================================
+SECTION 6: DOCUMENTATION REQUEST
+================================================================================
+
+- Give me a txt file with all of my prompts in the following format with clear section headers: 
+  
+  - I want to develop a database driven web application for maintaining and
+    managing new technology products released by tech companies. For e.g. I
+    want to track all the new products released by Apple and see trends in
+    terms of user interfaces, cool features, technical upgrades etc. Please
+    develop a set of PRD for this brand new application in file
+    01_PRD_v1.md
+  
+  - I would like you to go through the PRD attached and identify all the
+    entities that will eventually be used to develop ERD.
+  
+  - let us focus first on core MVP Entities. can you list these and their
+    associated attriutes in 03_entities_attributes_v1.md? I just want the
+    list of entities and their respective attributes. don't add any other
+    info.
+  
+  - use the attached document to create ERD in the dbml format. save it as
+    04_ERD_diagram_v1.dbml in dbml format specification
+  
+  - thats great! now, can you convert this dbml into a DDL script for
+    creating the tables and relationships. create the file
+    05_DDL_schema_v1.sql. This is for a SQLite database. DO NOT include DML
+    (insert statements!!)
+  
+  - Now can you create 06_DML_data_v1.sql that has the DML SQL statements
+    that populates data in the tables referenced in 05_DDL_schema_v1.sql?
+    This is for This is for a SQLite database.
+  
+  - create a simple streamlit python dashboard app in a single python file
+    called "07_sample_app.py". This is a dashboard that has one tab that
+    shows products and companies in a table. Also, show the sql query used
+    to generate this data on the side. Do not overcomplicate the code with
+    functions, validations. This is a simple demo app to showcase how we
+    can build apps. use this SQLite database
+    /Users/46773437/Dropbox/Data/SMU_teaching/Database/2025_Fall_Karthik/it
+    om6265_vscode/sqlite_database.db
+
+================================================================================
+END OF PROMPTS
+================================================================================
+
+Total Prompts: 14
+Project: National Park Travel Planner (park-pal)
+Repository: https://github.com/imtahurahi/park-pal.git
