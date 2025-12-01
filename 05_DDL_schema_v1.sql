@@ -195,6 +195,20 @@ CREATE TABLE Wishlists (
     UNIQUE (user_id, park_id)
 );
 
+CREATE TABLE Park_Reviews (
+    review_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    park_id INTEGER NOT NULL,
+    rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+    title VARCHAR(200),
+    review_text TEXT,
+    visit_date DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users (user_id) ON DELETE CASCADE,
+    FOREIGN KEY (park_id) REFERENCES Parks (park_id) ON DELETE CASCADE
+);
+
 -- ===================================
 -- INDEXES FOR PERFORMANCE
 -- ===================================
@@ -229,6 +243,10 @@ CREATE INDEX idx_flights_destination ON Flights (destination_airport_id);
 
 CREATE INDEX idx_lodging_park ON Lodging (park_id);
 
+CREATE INDEX idx_reviews_user ON Park_Reviews (user_id);
+
+CREATE INDEX idx_reviews_park ON Park_Reviews (park_id);
+
 -- ===================================
 -- TRIGGERS FOR UPDATED_AT
 -- ===================================
@@ -252,4 +270,11 @@ AFTER UPDATE ON Notes
 FOR EACH ROW
 BEGIN
     UPDATE Notes SET updated_at = CURRENT_TIMESTAMP WHERE note_id = NEW.note_id;
+END;
+
+CREATE TRIGGER update_reviews_timestamp 
+AFTER UPDATE ON Park_Reviews
+FOR EACH ROW
+BEGIN
+    UPDATE Park_Reviews SET updated_at = CURRENT_TIMESTAMP WHERE review_id = NEW.review_id;
 END;
