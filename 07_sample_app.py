@@ -239,7 +239,6 @@ elif page == "Explore Parks":
                 # Review form
                 if st.session_state.get(f"show_review_form_{park['park_id']}", False):
                     with st.form(f"review_form_{park['park_id']}"):
-                        st.subheader("Write a Review")
                         rating = st.slider("Rating", 1, 5, 3)
                         review_title = st.text_input("Title")
                         review_text = st.text_area("Your Review")
