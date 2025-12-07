@@ -65,7 +65,9 @@ st.markdown(
 
 # Database configuration
 DB_CONFIG = {
-    "host": os.getenv("DB_HOST", "db-mysql-itom-do-user-28250611-0.j.db.ondigitalocean.com"),
+    "host": os.getenv(
+        "DB_HOST", "db-mysql-itom-do-user-28250611-0.j.db.ondigitalocean.com"
+    ),
     "port": int(os.getenv("DB_PORT", 25060)),
     "user": os.getenv("DB_USER", "group12"),
     "password": os.getenv("DB_PASSWORD", ""),
