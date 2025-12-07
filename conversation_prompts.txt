@@ -1,0 +1,102 @@
+ParkPal Database Development - Conversation Prompts Log
+================================================================
+
+1. Initial Database Setup
+   - "Access denied for user 'group12'@'%' to database 'ParkPal'"
+   - Modified DDL script to use existing 'group12' database instead of creating new database
+
+2. Views Clarification
+   - "there are v_ tables that I don't understand"
+   - "i see the tables were created but...not able to see them under the tables tab"
+   - "perfect, now i have the tables"
+
+3. DML Script Creation
+   - "create 06_DML_data_v1.sql"
+   - "In National_Park, input accurate data for all 63 national parks"
+   - "In Airport, input accurate data for 5 nearest airports each for [5 parks]"
+   - "In Flight create 10 fictional flights each to the 5 national parks"
+   - "insert airport id information as well"
+   - "can you make all dates in flights to january 2026 dates"
+   - "save all files so far"
+
+4. Return Flights
+   - "does flight table have flights back from the park?"
+   - "yes please"
+
+5. Lodging Data
+   - "Lodging - Create DML statements to populate the Lodging table with 5 fictional lodging options"
+
+6. Park_Airport Data
+   - "Park_Airport - Create DML statements to populate the Park_Airport table using existing park_ID and airport_ID values from the National_Park and Airport tables. Calculate distance_miles between each park and airport using latitude and longitude from the related tables. Use the table structure defined in 05_DDL_schema_v1.sql."
+
+7. Script Execution Issues
+   - "add code at the beginning to drop existing tables when running the file"
+   - "Cannot add or update a child row: a foreign key constraint fails"
+   - "Column count doesn't match value count at row 17"
+   - Fixed by adding explicit Park_ID values to all 63 national parks
+
+8. Streamlit Dashboard App
+   - "create a streamlit python dashboard app in a single python file called '07_sample_app.py'. use the prd app description to create this. add a page for a llm chat called parkbot for which I have an api key from open ai use latest version of chat gpt for this, do you need my database and api key information"
+   - Provided database credentials and OpenAI API key from .env file
+
+9. App Deployment Issues
+   - "run the app"
+   - "ModuleNotFoundError: No module named 'mysql'"
+   - "i have it installed, check again which environment should i be using"
+   - Installed mysql-connector-python and python-dotenv in virtual environment
+
+10. Database Connection Issues
+    - "Database connection failed: 1045 (28000): Access denied for user 'doadmin'@'129.119.235.26'"
+    - "not working"
+    - "i changed the .env file to take out ssl information"
+    - "not working still"
+    - "re-run the code"
+    - "find where doadmin is"
+    - "the app is not running"
+    - "its running but the database connection error is still there"
+    - "not working"
+    - "re-run the app"
+    - "the app is not running"
+    - Added override=True to load_dotenv() and then hardcoded credentials temporarily
+
+11. GitHub Repository
+    - "can i commit all changes to the github repository i set up earlier"
+    - GitHub push protection blocked commit due to hardcoded API key
+    - Removed hardcoded secrets and pushed successfully
+
+12. Documentation
+    - "create a txt file with all of our prompts so far"
+
+Key Files Created:
+==================
+- 01_PRD_v1.md - Product Requirements Document
+- 03_entities_attributes_v1.md - Entity and attribute documentation
+- 04_ERD_diagram_v1.dbml - ERD in DBML format
+- 05_DDL_schema_v1.sql - Database schema DDL script
+- 05_ERD_Documentation.md - ERD documentation
+- 06_DML_data_v1.sql - Data population script with 239 records
+- 07_sample_app.py - Streamlit dashboard with ParkBot AI chatbot
+- .env - Environment variables (not committed to GitHub)
+
+Database Tables Populated:
+=========================
+- National_Park: 63 US National Parks
+- Airport: 26 airports (DFW + 5 nearest to each of 5 parks)
+- Flight: 100 flights (50 outbound DFW→Parks + 50 return)
+- Lodging: 25 lodging options (5 per park for 5 parks)
+- Park_Airport: 25 mappings with calculated distances
+
+Application Features:
+====================
+- Home page with park statistics
+- Park Discovery with filters (region, state, difficulty, ratings)
+- Park Details with flights, lodging, and nearby airports
+- ParkBot Chat - AI-powered chatbot using OpenAI GPT-4o
+- About page
+
+Technical Stack:
+===============
+- Database: MySQL Server on DigitalOcean
+- Backend: Python with Streamlit
+- AI: OpenAI GPT-4o for ParkBot
+- Version Control: GitHub (imtahurahi/park-pal)
