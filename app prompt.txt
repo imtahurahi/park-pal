@@ -1,0 +1,372 @@
+
+You are building ParkPal, a comprehensive National Park trip planning web application using Streamlit and a single Python script. The app connects to a MySQL database and integrates OpenAI's API for natural language SQL query generation.
+Project Requirements
+Database & Environment Setup
+
+Database: MySQL Server connection using mysql-connector-python library
+Connection Method: Use mysql.connector.connect() with the following parameters from environment variables
+Environment Variables (from .env file):
+
+DB_HOST - Database host
+DB_PORT - Database port
+DB_USER - Database username
+DB_PASSWORD - Database password
+DB_NAME - Database name (group12)
+DB_SSL_MODE - SSL mode for connection
+OPENAI_API_KEY - OpenAI API key for SQL chat feature
+
+
+Use python-dotenv to load environment variables
+
+Database Schema
+The app connects to 5 tables (see attached documents for full schema):
+
+User - User accounts (User_ID, Email, First_Name, Last_Name, etc.)
+National_Park - All 63 US National Parks (Park_ID, Park_Name, State, Description, Annual_Visitors, Best_Time_To_Visit, etc.)
+Lodging - Accommodation options (Lodging_ID, Park_ID, Lodging_Name, Lodging_Type, Price_Per_Night, etc.)
+Lodging_Reservation - User bookings (Reservation_ID, User_ID, Lodging_ID, Check_In_Date, Check_Out_Date, Reservation_Status, etc.)
+Park_Review - User reviews (Review_ID, User_ID, Park_ID, Rating, Review_Text, Visit_Date, etc.)
+
+Application Structure
+Create a multi-page Streamlit app with the following pages:
+1. Home Page
+
+Display "ParkPal" as the main title
+Show app description: "Your comprehensive guide to planning unforgettable trips to America's 63 National Parks. Discover parks, book lodging, and share your experiences."
+Include welcome message and navigation guidance
+Use nature-inspired imagery if possible
+
+2. Browse Parks Page
+
+Main Section:
+
+Display all 63 national parks in an organized, filterable format
+Allow filtering by: State, Region, Best Time to Visit, Difficulty Rating
+Show park cards/table with: Park Name, State, Description (truncated), Annual Visitors, Entry Fee
+Clicking on a park shows detailed information (all park attributes)
+Display average rating from Park_Review table
+
+
+Analytics Tab (nested within Browse Parks):
+
+Create an interactive visualization comparing national parks by:
+
+Popularity (Annual_Visitors) on Y-axis
+Best Time to Visit (month/season) on X-axis or as color/grouping
+
+
+Use plotly or matplotlib with ggplot style
+Allow users to filter by region or state
+Show top 10-20 most popular parks
+Include tooltips showing park names and visitor counts
+
+
+
+3. Make Reservation Page
+
+Step 1: Select a National Park (dropdown)
+Step 2: View available lodging for selected park
+
+Display lodging options with: Name, Type, Price Per Night, Distance from Park, Star Rating
+Allow filtering by: Lodging Type, Price Range, Distance
+
+
+Step 3: Create Reservation Form
+
+Select User (dropdown - for demo purposes)
+Select Lodging
+Check-in Date (date picker)
+Check-out Date (date picker)
+Number of Guests (number input)
+Number of Rooms (number input)
+Guest Name, Phone, Email (text inputs)
+Validation:
+
+Check-out must be after check-in
+Check-in cannot be in the past
+Generate confirmation number automatically
+
+
+Calculate and display Total Cost (Price_Per_Night × number of nights × number of rooms)
+Set Reservation_Status to "confirmed"
+
+
+Show success message with confirmation number after creation
+
+4. My Reservations Page
+
+User Selection: Dropdown to select user (for demo)
+Display Reservations: Show all reservations for selected user in a table/cards
+
+Show: Confirmation Number, Park Name, Lodging Name, Check-in/Check-out Dates, Status, Total Cost
+Filter options: All/Upcoming/Past/Cancelled reservations
+
+
+CRUD Operations:
+
+Read: Display reservation details
+Update:
+
+Button to edit reservation (modify dates, guest count, rooms)
+Recalculate total cost on update
+Validation same as create
+
+
+Delete:
+
+Button to cancel reservation (changes status to "cancelled" or deletes record)
+Confirmation dialog before deletion
+Show updated list after deletion
+
+
+
+
+
+5. Reviews Page
+
+Tab 1: Browse Reviews
+
+Display all park reviews with: Park Name, Rating (stars), Review Text, User Name, Visit Date, Review Date
+Filter by: Park (dropdown), Rating (1-5), Date range
+Sort by: Most Recent, Highest Rated, Lowest Rated
+Show average rating per park
+
+
+Tab 2: My Reviews (CRUD Operations)
+
+User Selection: Dropdown to select user
+Create Review:
+
+Select Park (dropdown)
+Rating (1-5 stars - use star selector or slider)
+Review Text (text area, min 50 characters)
+Visit Date (date picker)
+Photo URLs (optional text input for comma-separated URLs)
+Validation: Ensure required fields are filled
+Auto-set Review_Date to current timestamp
+
+
+Read: Display user's reviews in cards/table
+Update:
+
+Edit button for each review
+Allow editing within 30 days of submission (check Review_Date)
+Same form as create
+
+
+Delete:
+
+Delete button for each review
+Confirmation dialog
+Remove from database
+
+
+
+
+
+6. ParkBot (SQL Chat) Page
+
+Natural Language to SQL Query Generation
+Interface:
+
+Text input for user questions in plain English
+"Ask ParkBot" button to submit
+Display area showing:
+
+User's question
+Generated SQL query (in code block)
+Query results (in formatted table)
+Explanation of what the query does
+
+
+
+
+Example Questions (provide clickable buttons):
+
+"What are the top 5 most visited national parks?"
+"Show me all lodging options under $150 per night near Yosemite"
+"Which parks have the highest average ratings?"
+"Find all campgrounds in Utah"
+"What are the best parks to visit in summer?"
+"Show me reviews for Grand Canyon with ratings above 4"
+
+
+Implementation:
+
+Use OpenAI API (GPT-4 or GPT-3.5-turbo) to convert natural language to SQL
+Prompt Engineering:
+
+Provide database schema context to the model
+Specify that queries should only access: National_Park, Lodging, and Park_Review tables
+Request SELECT queries only (no INSERT, UPDATE, DELETE)
+Ask for safe, validated SQL queries
+
+
+Safety Measures:
+
+Validate generated SQL before execution
+Only allow SELECT statements
+Block any SQL injection attempts (DROP, DELETE, UPDATE, ALTER, etc.)
+Implement query timeout
+Limit result rows (e.g., max 100 rows)
+Display warning if query is rejected
+Handle SQL errors gracefully with user-friendly messages
+
+
+Explanation Feature:
+
+Ask OpenAI to explain what the query does in plain English
+Show this explanation below the results
+
+
+
+
+
+Design & UI Requirements
+Color Scheme (Earthy Tones)
+
+Primary Colors:
+
+Forest Green (#2D5016, #4A7C59)
+Earth Brown (#8B4513, #A0522D)
+Sky Blue (#87CEEB, #4682B4)
+Sand Beige (#F5DEB3, #D2B48C)
+
+
+Background: Warm beige or light cream (#FAF8F3)
+Accent: Sunset Orange (#FF6347) for CTAs
+Use Streamlit's theming capabilities via .streamlit/config.toml or custom CSS
+
+UI/UX Requirements
+
+Intuitive Navigation: Clear sidebar with page links and icons
+Responsive Design: Should work on desktop and tablet
+Visual Hierarchy: Use headers (h1, h2, h3) appropriately
+Spacing: Adequate whitespace between sections
+Loading States: Show spinners during database queries and API calls
+Error Handling: User-friendly error messages, never crash
+Success Feedback: Confirmation messages after CRUD operations
+Data Validation: Client-side validation with clear error messages
+Icons: Use emojis or Streamlit icons for visual appeal (🏞️, 🏕️, ⭐, 🔍, etc.)
+
+Technical Requirements
+Code Structure
+
+Single Python script (app.py)
+Use functions for database operations (connect_db, execute_query, etc.)
+Use Streamlit's session state for managing user selections
+Implement proper error handling with try-except blocks
+Add docstrings to functions
+Use type hints where appropriate
+
+Database Operations with mysql-connector-python
+
+Connection Setup:
+
+pythonimport mysql.connector
+from mysql.connector import Error
+
+def get_db_connection():
+    """Create and return database connection using mysql-connector-python"""
+    try:
+        connection = mysql.connector.connect(
+            host=os.getenv('DB_HOST'),
+            port=int(os.getenv('DB_PORT')),
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD'),
+            database=os.getenv('DB_NAME'),
+            ssl_disabled=(os.getenv('DB_SSL_MODE') == 'DISABLED')
+        )
+        return connection
+    except Error as e:
+        st.error(f"Database connection error: {e}")
+        return None
+```
+
+- Create reusable functions for:
+  - Database connection (with proper error handling)
+  - SELECT queries (fetch parks, lodging, reservations, reviews)
+  - INSERT operations (create reservations, reviews)
+  - UPDATE operations (edit reservations, reviews)
+  - DELETE operations (cancel reservations, delete reviews)
+- Always close database connections properly using `connection.close()` and `cursor.close()`
+- Use parameterized queries with `cursor.execute(query, params)` to prevent SQL injection
+- Handle `mysql.connector.Error` exceptions gracefully
+
+#### Dependencies (include in requirements.txt)
+```
+streamlit
+mysql-connector-python
+python-dotenv
+openai
+pandas
+plotly
+# or matplotlib if you prefer
+Error Handling
+
+Validate all user inputs
+Handle database connection failures gracefully
+Catch and display API errors from OpenAI
+Provide helpful error messages
+Log errors for debugging (use st.error for user-facing messages)
+Handle mysql.connector.Error specifically for database operations
+
+Performance Considerations
+
+Cache database queries where appropriate using @st.cache_data
+Limit query results to reasonable sizes
+Use pagination for large datasets if needed
+Use cursor.fetchall(), cursor.fetchone(), or cursor.fetchmany() as appropriate
+
+Specific Implementation Notes
+
+Date Handling: Use Python's datetime module for date validation and calculations
+Cost Calculation: Total_Cost = Price_Per_Night × (Check_Out_Date - Check_In_Date).days × Number_Of_Rooms
+Confirmation Number: Generate using format RES-YYYYMMDD-NNNNNN where N is reservation ID
+Rating Display: Use star emojis (⭐) or Streamlit's star rating component
+User Dropdown: Query all users and display as "First_Name Last_Name (Email)"
+SQL Validation: Use regex or string parsing to detect dangerous SQL keywords
+Cursor Usage: Always use cursor = connection.cursor(dictionary=True) for easier data handling with column names
+
+OpenAI Integration Details
+python# Example structure for SQL Chat
+system_prompt = """
+You are a helpful SQL query generator for the ParkPal database.
+Database schema:
+- National_Park: Park_ID, Park_Name, State, Region, Annual_Visitors, Best_Time_To_Visit, Entry_Fee, Description, etc.
+- Lodging: Lodging_ID, Park_ID, Lodging_Name, Lodging_Type, Price_Per_Night, Distance_From_Park_Miles, Star_Rating, etc.
+- Park_Review: Review_ID, User_ID, Park_ID, Rating, Review_Text, Visit_Date, Review_Date, etc.
+
+Generate ONLY SELECT queries. Never use INSERT, UPDATE, DELETE, DROP, or other modifying commands.
+Return valid MySQL syntax. Join tables when needed for better results.
+"""
+
+# User question -> OpenAI API -> SQL query -> Execute -> Display results
+Testing Checklist
+
+ All pages load without errors
+ Database connection works with .env credentials using mysql-connector-python
+ Browse Parks shows all 63 parks
+ Analytics visualization displays correctly
+ Can create new reservations with proper validation
+ Can view, update, and delete reservations
+ Can create, read, update, and delete reviews
+ SQL Chat generates valid queries
+ Safety measures block dangerous SQL
+ Error messages are user-friendly
+ UI uses earthy color scheme
+ Navigation is intuitive
+ Database connections are properly closed after operations
+
+Deliverable
+Provide a complete, working, error-free app.py file with:
+
+All imports at the top
+Database connection setup using mysql-connector-python
+Helper functions for database operations (with proper connection/cursor management)
+All 6 pages implemented
+Proper Streamlit page configuration
+Comments explaining key sections
+The app should run immediately with streamlit run app.py
+
+CRITICAL: The app must be fully functional, bug-free, and production-ready. Test all CRUD operations, validate all inputs, and ensure the SQL Chat feature includes comprehensive safety measures. Use mysql-connector-python exclusively for all database operations with proper connection management (open/close connections, use parameterized queries, handle errors). The UI should be polished, intuitive, and visually appealing with the earthy color scheme.

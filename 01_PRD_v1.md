@@ -11,13 +11,13 @@
 ## 1. Executive Summary
 
 ### 1.1 Product Vision
-ParkPal is a comprehensive web application designed to streamline the entire trip planning process for US National Park enthusiasts. The platform consolidates park discovery, flight booking, accommodation reservations, and trip reviews into a single, intuitive experience.
+ParkPal is a comprehensive web application designed to streamline the trip planning process for US National Park enthusiasts. The platform consolidates park discovery, lodging reservations, and trip reviews into a single, intuitive experience.
 
 ### 1.2 Product Objectives
 - Enable users to discover and research all 63 US National Parks
-- Facilitate end-to-end trip planning including flights and lodging
+- Facilitate trip planning with easy lodging reservations
 - Build a community through user-generated reviews and ratings
-- Reduce planning friction by integrating multiple travel services
+- Reduce planning friction by centralizing park and lodging information
 - Create a centralized database of national park trip information
 
 ### 1.3 Target Audience
@@ -30,21 +30,20 @@ ParkPal is a comprehensive web application designed to streamline the entire tri
 ## 2. Product Overview
 
 ### 2.1 Product Description
-ParkPal is a database-driven web application that serves as a one-stop solution for planning national park trips. Users can search parks, view detailed information, book flights from Dallas/Fort Worth International Airport (DFW) to nearby airports, reserve lodging, and share their experiences through reviews.
+ParkPal is a database-driven web application that serves as a one-stop solution for planning national park trips. Users can search parks, view detailed information, reserve lodging, and share their experiences through reviews.
 
 ### 2.2 Key Features
 1. **Park Discovery & Search**
-2. **Flight Booking Integration**
-3. **Lodging Reservation System**
-4. **User Review Platform**
-5. **Trip Management Dashboard**
-6. **User Account Management**
-7. **OpenAI-GPT Chat for recommendations - ParkBot**
+2. **Lodging Reservation System**
+3. **User Review Platform**
+4. **Trip Management Dashboard**
+5. **User Account Management**
+6. **OpenAI-GPT Chat for recommendations - ParkBot**
 
 ### 2.3 Success Metrics
 - User registration and retention rates
 - Number of trips planned through the platform
-- Booking conversion rates (flights and lodging)
+- Lodging booking conversion rates
 - User review submission rate
 - Average session duration
 - Customer satisfaction score (CSAT)
@@ -94,8 +93,7 @@ ParkPal is a database-driven web application that serves as a one-stop solution 
   - Difficulty rating
   - Kid and pet friendliness ratings
 - **FR-PD-003:** System must display high-quality images for each park
-- **FR-PD-004:** System must maintain list of nearby airports with distances
-- **FR-PD-005:** System must maintain list of nearby lodging with prices and distances
+- **FR-PD-004:** System must maintain list of nearby lodging with prices and distances
 
 #### 3.2.2 Search & Filter
 - **FR-PD-005:** Users must be able to search parks by name
@@ -109,7 +107,6 @@ ParkPal is a database-driven web application that serves as a one-stop solution 
 - **FR-PD-008:** Users must be able to sort results by:
   - Alphabetical order
   - Popularity (visitor count)
-  - Distance from DFW
   - User ratings
 
 #### 3.2.3 Park Details
@@ -118,51 +115,13 @@ ParkPal is a database-driven web application that serves as a one-stop solution 
   - All park information from database
   - Weather information
   - Trail maps and hiking information
-  - Nearby airports with distances
   - Available lodging options
   - User reviews and ratings
 - **FR-PD-011:** Park details page must have "Plan Trip" call-to-action button
 
-### 3.3 Flight Booking
+### 3.3 Lodging Reservation
 
-#### 3.3.1 Flight Search
-- **FR-FB-001:** System must default departure airport to DFW (Dallas/Fort Worth)
-- **FR-FB-002:** System must display available destination airports near selected park
-- **FR-FB-003:** Users must be able to specify:
-  - Departure date
-  - Return date
-  - Number of travelers
-- **FR-FB-004:** System must search for available flights matching criteria
-- **FR-FB-005:** Flight results must display:
-  - Airline name
-  - Flight number
-  - Departure and arrival times
-  - Duration
-  - Number of stops
-  - Price
-  - Availability
-
-#### 3.3.2 Flight Selection & Booking
-- **FR-FB-006:** Users must be able to select outbound and return flights
-- **FR-FB-007:** System must display total flight cost before booking
-- **FR-FB-008:** Users must be able to review flight details before confirming
-- **FR-FB-009:** System must collect passenger information:
-  - Full name (as on ID)
-  - Date of birth
-- **FR-FB-010:** System must process flight booking and store in database
-- **FR-FB-011:** Users must receive booking confirmation with:
-  - Confirmation number
-  - Itinerary details
-  - E-ticket information
-- **FR-FB-012:** Users must be able to view booked flights in their trip dashboard
-
-#### 3.3.3 Flight Management
-- **FR-FB-013:** Users must be able to view booking details
-- **FR-FB-014:** Users must be able to update and/or cancel flights
-
-### 3.4 Lodging Reservation
-
-#### 3.4.1 Lodging Search
+#### 3.3.1 Lodging Search
 - **FR-LR-001:** System must display available lodging options near selected park
 - **FR-LR-002:** Lodging types must include:
   - Hotels
@@ -182,7 +141,7 @@ ParkPal is a database-driven web application that serves as a one-stop solution 
   - Star rating
   - User reviews
 
-#### 3.4.2 Lodging Details
+#### 3.3.2 Lodging Details
 - **FR-LR-005:** Each lodging listing must display:
   - Name and type
   - Address and distance from park
@@ -194,7 +153,7 @@ ParkPal is a database-driven web application that serves as a one-stop solution 
   - User reviews and ratings
   - Contact information
 
-#### 3.4.3 Lodging Booking
+#### 3.3.3 Lodging Booking
 - **FR-LR-006:** Users must be able to select specific room/site type
 - **FR-LR-007:** System must calculate total lodging cost including taxes and fees
 - **FR-LR-008:** Users must be able to review reservation details before confirming
@@ -210,14 +169,14 @@ ParkPal is a database-driven web application that serves as a one-stop solution 
   - Contact information
 - **FR-LR-012:** Users must be able to view reservations in trip dashboard
 
-#### 3.4.4 Reservation Management
+#### 3.3.4 Reservation Management
 - **FR-LR-013:** Users must be able to view reservation details
 - **FR-LR-014:** Users must be able to modify reservations 
 - **FR-LR-015:** Users must be able to cancel reservations 
 
-### 3.5 Trip Management
+### 3.4 Trip Management
 
-#### 3.5.1 Trip Dashboard
+#### 3.4.1 Trip Dashboard
 - **FR-TM-001:** Users must have a personalized trip dashboard
 - **FR-TM-002:** Dashboard must display:
   - Upcoming trips
@@ -226,36 +185,32 @@ ParkPal is a database-driven web application that serves as a one-stop solution 
   - Quick access to trip details
 - **FR-TM-003:** Users must be able to view all components of a trip:
   - Selected park
-  - Flight bookings
   - Lodging reservations
   - Trip dates
   - Total cost
 
-#### 3.5.2 Trip Planning
+#### 3.4.2 Trip Planning
 - **FR-TM-004:** Users must be able to create a new trip by selecting a park
 - **FR-TM-005:** System must guide users through trip planning workflow:
   1. Select park
   2. Choose travel dates
-  3. Search and book flights
-  4. Search and book lodging
-  5. Review and confirm trip
+  3. Search and book lodging
+  4. Review and confirm trip
 - **FR-TM-006:** Users must be able to save trip as draft without booking
-- **FR-TM-007:** Users must be able to book flights and lodging separately
 - **FR-TM-008:** System must validate date consistency across trip components
 - **FR-TM-009:** Users can update or delete trips.
 
-#### 3.5.3 Trip Summary
-- **FR-TM-009:** Users must be able to view complete trip summary
-- **FR-TM-010:** Trip summary must include:
+#### 3.4.3 Trip Summary
+- **FR-TM-010:** Users must be able to view complete trip summary
+- **FR-TM-011:** Trip summary must include:
   - Park information
-  - Flight itinerary
   - Lodging details
   - Total trip cost breakdown
   - Booking confirmations
 
-### 3.6 Review & Rating System
+### 3.5 Review & Rating System
 
-#### 3.6.1 Park Reviews
+#### 3.5.1 Park Reviews
 - **FR-RR-001:** Authenticated users must be able to write reviews for parks they've visited
 - **FR-RR-002:** Park reviews must include:
   - Overall rating (1-5 stars)
@@ -263,7 +218,7 @@ ParkPal is a database-driven web application that serves as a one-stop solution 
   - Visit date
 - **FR-RR-003:** Users must be able to upload photos with reviews (max 10 photos)
 
-#### 3.6.2 Review Management
+#### 3.5.2 Review Management
 - **FR-RR-008:** Users must be able to view all their submitted reviews
 - **FR-RR-009:** Users must be able to edit their reviews within 30 days
 - **FR-RR-010:** Users must be able to delete their reviews
@@ -347,38 +302,14 @@ The database must support the following primary entities:
    - Entry fees
    - Geographic data
 
-3. **Airports**
-   - Airport ID (PK)
-   - Airport code (IATA)
-   - Name, city, state
-   - Coordinates
-
-4. **Park-Airport Relationships**
-   - Mapping of parks to nearby airports
-   - Distance information
-
-5. **Flights**
-   - Flight ID (PK)
-   - Airline, flight number
-   - Departure/arrival airports
-   - Schedule, pricing
-   - Availability
-
-6. **Flight Bookings**
-   - Booking ID (PK)
-   - User ID (FK)
-   - Flight ID (FK)
-   - Passenger details
-   - Booking status
-
-7. **Lodging**
+3. **Lodging**
    - Lodging ID (PK)
    - Name, type, location
    - Park ID (FK)
    - Amenities, pricing
    - Contact information
 
-8. **Lodging Reservations**
+4. **Lodging Reservations**
    - Reservation ID (PK)
    - User ID (FK)
    - Lodging ID (FK)
@@ -386,24 +317,24 @@ The database must support the following primary entities:
    - Guest information
    - Reservation status
 
-9. **Trips**
+5. **Trips**
    - Trip ID (PK)
    - User ID (FK)
    - Park ID (FK)
    - Trip dates
    - Status
 
-10. **Trip Components**
-    - Links trips to flight bookings and lodging reservations
+6. **Trip Components**
+    - Links trips to lodging reservations
 
-11. **Park Reviews**
+7. **Park Reviews**
     - Review ID (PK)
     - User ID (FK)
     - Park ID (FK)
     - Ratings, text, photos
     - Visit date
 
-12. **Lodging Reviews**
+8. **Lodging Reviews**
     - Review ID (PK)
     - User ID (FK)
     - Lodging ID (FK)
@@ -453,19 +384,11 @@ The database must support the following primary entities:
 - Park information tabs (Overview, Activities, Reviews, Plan Trip)
 - Key statistics and facts
 - Weather widget
-- Map showing location and nearby airports
+- Map showing park location
 - User reviews section
 - "Plan Your Trip" prominent CTA
 
-#### 6.2.4 Flight Search/Booking
-- Search form with date pickers
-- Flight results with filters
-- Flight details expandable sections
-- Booking summary sidebar
-- Passenger information form
-- Confirmation page
-
-#### 6.2.5 Lodging Search/Booking
+#### 6.2.4 Lodging Search/Booking
 - Search filters sidebar
 - Lodging cards with images, ratings, price
 - Lodging detail modal/page
@@ -473,20 +396,20 @@ The database must support the following primary entities:
 - Booking form
 - Confirmation page
 
-#### 6.2.6 User Dashboard
+#### 6.2.5 User Dashboard
 - Navigation tabs (Overview, Trips, Reviews, Profile)
 - Trip cards showing status and details
 - Quick actions
 - Statistics (trips planned, reviews written, etc.)
 
-#### 6.2.7 Trip Detail Page
+#### 6.2.6 Trip Detail Page
 - Trip timeline visualization
-- Flight and lodging information cards
+- Lodging information cards
 - Trip summary with costs
 - Edit/cancel options
 - Download/print button
 
-#### 6.2.8 Review Creation Page
+#### 6.2.7 Review Creation Page
 - Star rating inputs
 - Text editor for review
 - Photo upload interface
@@ -503,36 +426,30 @@ The database must support the following primary entities:
 
 ## 7. External Integrations
 
-### 7.1 Flight Data
-- **Integration with flight booking API or database**
-- Real-time flight availability and pricing
-- Booking confirmation and ticket issuance
-- *Note: May use simulated data for MVP*
-
-### 7.2 Lodging Data
+### 7.1 Lodging Data
 - **Integration with lodging providers/aggregators**
 - Real-time availability and pricing
 - Reservation management
 - *Note: May use curated database for MVP*
 
-### 7.3 Payment Processing
+### 7.2 Payment Processing
 - Secure payment gateway integration
 - Support for major credit cards
 - Transaction security and compliance
 - Refund processing
 
-### 7.4 Maps and Location
-- Mapping service integration (Google Maps, Mapbox)
-- Display park locations
-- Calculate distances
-- Show nearby airports and lodging
+### 7.3 Maps & Geocoding
+- Google Maps API or Mapbox
+- Park location mapping
+- Distance calculations
+- Show park boundaries and nearby lodging
 
-### 7.5 Weather Data
+### 7.4 Weather Data
 - Weather API integration
 - Current conditions and forecasts
 - Historical weather patterns
 
-### 7.6 Email Service
+### 7.5 Email Service
 - Transactional email service (SendGrid, AWS SES)
 - Booking confirmations
 - Account notifications
@@ -549,13 +466,12 @@ The database must support the following primary entities:
 - User registration and authentication
 - Park database and search (all 63 parks)
 - Park detail pages with basic information
-- Simple flight search and booking (simulated data)
 - Simple lodging search and booking (curated database)
 - Basic trip management
 - Park reviews and ratings
 
 **Database:**
-- Core tables: Users, Parks, Airports, Flights, Lodging, Bookings, Reservations, Trips, Reviews
+- Core tables: Users, Parks, Lodging, Reservations, Trips, Reviews
 - Basic relationships and constraints
 
 **UI:**
@@ -589,7 +505,6 @@ The database must support the following primary entities:
 **Timeline: 8-10 weeks**
 
 **Additional Features:**
-- Real-time flight integration (if feasible)
 - Expanded lodging partnerships
 - Trip recommendations based on preferences
 - Social features (follow users, share itineraries)
@@ -664,16 +579,15 @@ The database must support the following primary entities:
 ## 11. Constraints and Assumptions
 
 ### 11.1 Constraints
-- Initial launch focuses on DFW as single departure airport
 - Limited to 63 US National Parks (no state parks or monuments)
-- Budget constraints may require simulated flight data initially
+- Budget constraints for initial development
 - Development team size and expertise
 - Timeline for academic project completion
 
 ### 11.2 Assumptions
 - Users have basic internet access and modern browsers
 - Users are comfortable with online booking processes
-- Flight and lodging data can be sourced or simulated
+- Lodging data can be sourced or simulated
 - Payment processing integration is feasible
 - Users will actively contribute reviews post-trip
 - Sufficient server resources for expected load
@@ -824,7 +738,6 @@ The system must include all 63 US National Parks:
 
 ### 15.2 Reference Documents
 - National Park Service Official Data
-- Flight booking API documentation (TBD)
 - Lodging provider APIs (TBD)
 - Payment gateway documentation (TBD)
 
@@ -846,6 +759,7 @@ The system must include all 63 US National Parks:
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0 | December 6, 2025 | Product Team | Initial draft |
+| 1.1 | December 6, 2025 | Product Team | Removed flight and airport functionality to focus on lodging and reviews |
 
 ---
 

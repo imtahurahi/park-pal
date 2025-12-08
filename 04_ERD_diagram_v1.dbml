@@ -1,11 +1,11 @@
-// ParkPal - National Park Trip Planning Platform
+// ParkPal - National Park Lodging & Review Platform
 // Entity Relationship Diagram (ERD)
-// Version: 1.0
-// Date: December 6, 2025
+// Version: 2.0
+// Date: December 7, 2025
 
 Project ParkPal {
   database_type: 'MySQL'
-  Note: 'Database schema for ParkPal - National Park Trip Planning Platform'
+  Note: 'Database schema for ParkPal - National Park Lodging & Review Platform'
 }
 
 // ===================================
@@ -18,23 +18,11 @@ TableGroup user_management {
 
 TableGroup park_system {
   National_Park
-  Airport
-  Park_Airport
-}
-
-TableGroup flight_system {
-  Flight
-  Flight_Booking
 }
 
 TableGroup lodging_system {
   Lodging
   Lodging_Reservation
-}
-
-TableGroup trip_system {
-  Trip
-  Trip_Component
 }
 
 TableGroup review_system {
@@ -83,57 +71,6 @@ Table National_Park {
   Note: 'All 63 US National Parks information'
 }
 
-Table Airport {
-  Airport_ID int [pk, increment]
-  Airport_Code varchar(3) [not null, unique]
-  Airport_Name varchar(255) [not null]
-  City varchar(100) [not null]
-  State varchar(100) [not null]
-  Latitude decimal(10,8)
-  Longitude decimal(11,8)
-  
-  Note: 'Airport information including DFW and airports near national parks'
-}
-
-Table Park_Airport {
-  Park_ID int [pk, ref: > National_Park.Park_ID]
-  Airport_ID int [pk, ref: > Airport.Airport_ID]
-  Distance_Miles decimal(10,2)
-  
-  Note: 'Junction table linking parks to nearby airports with distances'
-}
-
-Table Flight {
-  Flight_ID int [pk, increment]
-  Airline varchar(100) [not null]
-  Flight_Number varchar(20) [not null]
-  Departure_Airport_ID int [not null, ref: > Airport.Airport_ID]
-  Arrival_Airport_ID int [not null, ref: > Airport.Airport_ID]
-  Departure_Time timestamp [not null]
-  Arrival_Time timestamp [not null]
-  Duration_Minutes int
-  Number_Of_Stops int [default: 0]
-  Price decimal(10,2) [not null]
-  Available_Seats int [not null]
-  
-  Note: 'Flight information and availability'
-}
-
-Table Flight_Booking {
-  Booking_ID int [pk, increment]
-  User_ID int [not null, ref: > User.User_ID]
-  Flight_ID int [not null, ref: > Flight.Flight_ID]
-  Passenger_First_Name varchar(100) [not null]
-  Passenger_Last_Name varchar(100) [not null]
-  Passenger_DOB date [not null]
-  Confirmation_Number varchar(50) [not null, unique]
-  Booking_Status varchar(50) [not null]
-  Booking_Date timestamp [not null, default: `now()`]
-  Total_Cost decimal(10,2) [not null]
-  
-  Note: 'Flight booking records for users'
-}
-
 Table Lodging {
   Lodging_ID int [pk, increment]
   Park_ID int [not null, ref: > National_Park.Park_ID]
@@ -173,28 +110,6 @@ Table Lodging_Reservation {
   Note: 'Lodging reservation records for users'
 }
 
-Table Trip {
-  Trip_ID int [pk, increment]
-  User_ID int [not null, ref: > User.User_ID]
-  Park_ID int [not null, ref: > National_Park.Park_ID]
-  Trip_Start_Date date [not null]
-  Trip_End_Date date [not null]
-  Trip_Status varchar(50) [not null]
-  Total_Cost decimal(10,2)
-  Created_At timestamp [not null, default: `now()`]
-  Updated_At timestamp [not null, default: `now()`]
-  
-  Note: 'Trip planning and tracking for users'
-}
-
-Table Trip_Component {
-  Trip_ID int [pk, ref: > Trip.Trip_ID]
-  Flight_Booking_ID int [ref: > Flight_Booking.Booking_ID]
-  Lodging_Reservation_ID int [ref: > Lodging_Reservation.Reservation_ID]
-  
-  Note: 'Junction table linking trips to flight bookings and lodging reservations'
-}
-
 Table Park_Review {
   Review_ID int [pk, increment]
   User_ID int [not null, ref: > User.User_ID]
@@ -213,29 +128,12 @@ Table Park_Review {
 // ===================================
 
 // User relationships
-// - User (1) -> (Many) Flight_Booking
 // - User (1) -> (Many) Lodging_Reservation
-// - User (1) -> (Many) Trip
 // - User (1) -> (Many) Park_Review
 
 // National_Park relationships
-// - National_Park (1) -> (Many) Park_Airport
 // - National_Park (1) -> (Many) Lodging
-// - National_Park (1) -> (Many) Trip
 // - National_Park (1) -> (Many) Park_Review
-
-// Airport relationships
-// - Airport (1) -> (Many) Park_Airport
-// - Airport (1) -> (Many) Flight (Departure)
-// - Airport (1) -> (Many) Flight (Arrival)
-
-// Flight relationships
-// - Flight (1) -> (Many) Flight_Booking
 
 // Lodging relationships
 // - Lodging (1) -> (Many) Lodging_Reservation
-
-// Trip relationships
-// - Trip (1) -> (1) Trip_Component
-// - Flight_Booking (1) -> (Many) Trip_Component
-// - Lodging_Reservation (1) -> (Many) Trip_Component

@@ -32,46 +32,7 @@
 - Kid_Friendliness_Rating
 - Pet_Friendliness_Rating
 
-## 3. Airports
-- Airport_ID (PK)
-- Airport_Code
-- Airport_Name
-- City
-- State
-- Latitude
-- Longitude
-
-## 4. Park_Airports
-- Park_ID (PK, FK)
-- Airport_ID (PK, FK)
-- Distance_Miles
-
-## 5. Flights
-- Flight_ID (PK)
-- Airline
-- Flight_Number
-- Departure_Airport_ID (FK)
-- Arrival_Airport_ID (FK)
-- Departure_Time
-- Arrival_Time
-- Duration_Minutes
-- Number_Of_Stops
-- Price
-- Available_Seats
-
-## 6. Flight_Bookings
-- Booking_ID (PK)
-- User_ID (FK)
-- Flight_ID (FK)
-- Passenger_First_Name
-- Passenger_Last_Name
-- Passenger_DOB
-- Confirmation_Number
-- Booking_Status
-- Booking_Date
-- Total_Cost
-
-## 7. Lodging
+## 3. Lodging
 - Lodging_ID (PK)
 - Park_ID (FK)
 - Lodging_Name
@@ -88,7 +49,7 @@
 - Distance_From_Park_Miles
 - Star_Rating
 
-## 8. Lodging_Reservations
+## 4. Lodging_Reservations
 - Reservation_ID (PK)
 - User_ID (FK)
 - Lodging_ID (FK)
@@ -104,23 +65,7 @@
 - Total_Cost
 - Created_At
 
-## 9. Trips
-- Trip_ID (PK)
-- User_ID (FK)
-- Park_ID (FK)
-- Trip_Start_Date
-- Trip_End_Date
-- Trip_Status
-- Total_Cost
-- Created_At
-- Updated_At
-
-## 10. Trip_Components
-- Trip_ID (PK, FK)
-- Flight_Booking_ID (FK)
-- Lodging_Reservation_ID (FK)
-
-## 11. Park_Reviews
+## 5. Park_Reviews
 - Review_ID (PK)
 - User_ID (FK)
 - Park_ID (FK)
