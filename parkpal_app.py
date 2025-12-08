@@ -34,9 +34,6 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    .main {
-        background-color: #FAF8F3;
-    }
     .stButton>button {
         background-color: #4A7C59;
         color: white;
@@ -58,9 +55,6 @@ st.markdown(
     }
     .sidebar .sidebar-content {
         background-color: #F5DEB3;
-    }
-    .stSelectbox, .stTextInput, .stTextArea, .stDateInput, .stNumberInput {
-        background-color: white;
     }
     div[data-testid="stMetricValue"] {
         color: #2D5016;
