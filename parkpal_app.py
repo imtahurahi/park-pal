@@ -19,8 +19,19 @@ from typing import Optional, Dict, List, Any
 # Load environment variables
 load_dotenv()
 
+
+# Helper function to get config values from either secrets or environment
+def get_config(key: str, default: str = None) -> str:
+    """Get configuration from Streamlit secrets or environment variables"""
+    # Try Streamlit secrets first (for cloud deployment)
+    if hasattr(st, "secrets") and key in st.secrets:
+        return st.secrets[key]
+    # Fall back to environment variables (for local development)
+    return os.getenv(key, default)
+
+
 # OpenAI API configuration
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = get_config("OPENAI_API_KEY")
 
 # Page configuration
 st.set_page_config(
@@ -90,14 +101,25 @@ st.markdown(
 def get_db_connection():
     """Create and return database connection using mysql-connector-python"""
     try:
-        connection = mysql.connector.connect(
-            host=os.getenv("DB_HOST"),
-            port=int(os.getenv("DB_PORT", 3306)),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASSWORD"),
-            database=os.getenv("DB_NAME"),
-            ssl_disabled=(os.getenv("DB_SSL_MODE") == "DISABLED"),
-        )
+        # SSL configuration for DigitalOcean MySQL
+        ssl_mode = get_config("DB_SSL_MODE", "REQUIRED")
+
+        connection_params = {
+            "host": get_config("DB_HOST"),
+            "port": int(get_config("DB_PORT", "3306")),
+            "user": get_config("DB_USER"),
+            "password": get_config("DB_PASSWORD"),
+            "database": get_config("DB_NAME"),
+        }
+
+        # Only disable SSL if explicitly set to DISABLED
+        if ssl_mode == "DISABLED":
+            connection_params["ssl_disabled"] = True
+        else:
+            # Enable SSL for cloud deployment
+            connection_params["ssl_disabled"] = False
+
+        connection = mysql.connector.connect(**connection_params)
         return connection
     except Error as e:
         st.error(f"❌ Database connection error: {e}")
