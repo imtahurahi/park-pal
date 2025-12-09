@@ -59,9 +59,6 @@ st.markdown(
     .sidebar .sidebar-content {
         background-color: #F5DEB3;
     }
-    .stSelectbox, .stTextInput, .stTextArea, .stDateInput, .stNumberInput {
-        background-color: white;
-    }
     div[data-testid="stMetricValue"] {
         color: #2D5016;
     }
@@ -587,17 +584,25 @@ def make_reservation_page():
     """Display reservation creation page"""
     st.title("🏕️ Make a Reservation")
 
-    # Step 1: Select Park
+    # Step 1: Select Park (only parks with lodging)
     st.subheader("Step 1: Select a National Park")
-    parks_df = get_all_parks()
+    
+    # Get only parks that have lodging available
+    query = """
+    SELECT DISTINCT p.Park_ID, p.Park_Name, p.State
+    FROM National_Park p
+    INNER JOIN Lodging l ON p.Park_ID = l.Park_ID
+    ORDER BY p.Park_Name
+    """
+    parks_result = execute_query(query)
 
-    if parks_df.empty:
-        st.error("No parks available.")
+    if not parks_result or len(parks_result) == 0:
+        st.error("No parks with lodging available.")
         return
 
     park_options = {
         f"{row['Park_Name']} ({row['State']})": row["Park_ID"]
-        for _, row in parks_df.iterrows()
+        for row in parks_result
     }
     selected_park_name = st.selectbox("Choose a park", list(park_options.keys()))
     selected_park_id = park_options[selected_park_name]
